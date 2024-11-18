@@ -14,7 +14,7 @@ jobs:
         run: curl -s https://shopify.dev/themekit/bin/latest/install | bash
       - name: Deploy to Shopify
         env:
-          SHOPIFY_API_PASSWORD: "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"
+          SHOPIFY_API_PASSWORD: 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
           THEME_ID: "172912443710"
           STORE_URL: "app-development-test729.myshopify.com"
         run: theme deploy
