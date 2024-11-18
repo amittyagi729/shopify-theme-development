@@ -15,4 +15,4 @@ jobs:
       - name: Deploy Theme
         env:
           SHOPIFY_CLI_AUTH_TOKEN: ${{ secrets.SHOPIFY_API_PASSWORD }}
-        run: shopify theme push --store your-store.myshopify.com
+        run: shopify theme push --store app-development-test729.myshopify.com
