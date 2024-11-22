@@ -22,12 +22,27 @@ jobs:
             echo "SHOPIFY_PASSWORD is set!"
           fi
 
+      - name: Check if Shopify Store URL is set
+        run: |
+          if [ -z "${{ secrets.SHOPIFY_STORE_URL }}" ]; then
+            echo "SHOPIFY_STORE_URL is NOT set!"
+          else
+            echo "SHOPIFY_STORE_URL is set!"
+          fi
+
       - name: Set environment variables
         run: |
           echo "SHOPIFY_PASSWORD=${{ secrets.SHOPIFY_PASSWORD }}" >> $GITHUB_ENV
           echo "SHOPIFY_STORE_URL=${{ secrets.SHOPIFY_STORE_URL }}" >> $GITHUB_ENV
           echo "SHOPIFY_THEME_ID=${{ secrets.SHOPIFY_THEME_ID }}" >> $GITHUB_ENV
           echo "THEME_PATH=${{ secrets.THEME_PATH }}" >> $GITHUB_ENV
+
+      - name: Debug Environment Variables
+        run: |
+          echo "SHOPIFY_PASSWORD: $SHOPIFY_PASSWORD"
+          echo "SHOPIFY_STORE_URL: $SHOPIFY_STORE_URL"
+          echo "SHOPIFY_THEME_ID: $SHOPIFY_THEME_ID"
+          echo "THEME_PATH: $THEME_PATH"
 
       - name: Deploy Theme to Shopify
         env:
