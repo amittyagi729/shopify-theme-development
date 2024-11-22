@@ -33,4 +33,4 @@ jobs:
           SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_THEME_ID }}
         run: |
           echo "Deploying Theme to Shopify..."
-          shopify theme push --path ./ --theme ${{ secrets.SHOPIFY_THEME_ID }} --yes --store "$SHOPIFY_STORE_URL" --password "$SHOPIFY_CLI_THEME_TOKEN"
+          shopify theme push --store "$SHOPIFY_STORE_URL" --password "$SHOPIFY_CLI_THEME_TOKEN" --theme ${{ secrets.SHOPIFY_THEME_ID }} --yes
