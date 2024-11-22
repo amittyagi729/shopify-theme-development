@@ -20,6 +20,12 @@ jobs:
           echo "SHOPIFY_STORE_URL=${{ secrets.SHOPIFY_STORE_URL }}" >> $GITHUB_ENV
           echo "SHOPIFY_THEME_ID=${{ secrets.SHOPIFY_THEME_ID }}" >> $GITHUB_ENV
 
+      - name: Debug Environment Variables
+        run: |
+          echo "SHOPIFY_PASSWORD: $SHOPIFY_PASSWORD"
+          echo "SHOPIFY_STORE_URL: $SHOPIFY_STORE_URL"
+          echo "SHOPIFY_THEME_ID: $SHOPIFY_THEME_ID"
+
       - name: Deploy Theme to Shopify
         env:
           SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_PASSWORD }}
