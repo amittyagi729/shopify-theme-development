@@ -36,4 +36,4 @@ jobs:
           THEME_PATH: ${{ secrets.THEME_PATH }}
         run: |
           echo "Deploying Theme to Shopify..."
-          shopify theme push --store $SHOPIFY_STORE_URL
+          shopify theme push --store app-development-test729.myshopify.com
