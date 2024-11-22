@@ -16,20 +16,20 @@ jobs:
 
       - name: Check if Shopify API Password is set
         run: |
-          if [ -z "${{ secrets.SHOPIFY_API_PASSWORD }}" ]; then
-            echo "SHOPIFY_API_PASSWORD is NOT set!"
+          if [ -z "${SHOPIFY_CLI_AUTH_TOKEN}" ]; then
+            echo "SHOPIFY_CLI_AUTH_TOKEN is NOT set!"
           else
-            echo "SHOPIFY_API_PASSWORD is set!"
+            echo "SHOPIFY_CLI_AUTH_TOKEN is set!"
           fi
 
-      - name: Authenticate with Shopify CLI
+      - name: Authenticate with Shopify CLI (Non-Interactive)
         env:
-          SHOPIFY_CLI_AUTH_TOKEN: ${{ secrets.SHOPIFY_API_PASSWORD }}  # Pass secret to the CLI as an environment variable
+          SHOPIFY_CLI_AUTH_TOKEN: ${{ secrets.SHOPIFY_API_PASSWORD }}
         run: |
           echo "Authenticating with Shopify CLI..."
           shopify login --store app-development-test729.myshopify.com --password $SHOPIFY_CLI_AUTH_TOKEN
 
       - name: Deploy Theme
         env:
-          SHOPIFY_CLI_AUTH_TOKEN: ${{ secrets.SHOPIFY_API_PASSWORD }}  # Pass the same secret to the theme deployment
+          SHOPIFY_CLI_AUTH_TOKEN: ${{ secrets.SHOPIFY_API_PASSWORD }}
         run: shopify theme push --store app-development-test729.myshopify.com
