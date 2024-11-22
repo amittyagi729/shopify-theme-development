@@ -14,14 +14,22 @@ jobs:
       - name: Install Shopify CLI
         run: npm install -g @shopify/cli @shopify/theme
 
+      - name: Check if Shopify API Password is set
+        run: |
+          if [ -z "${{ secrets.SHOPIFY_API_PASSWORD }}" ]; then
+            echo "SHOPIFY_API_PASSWORD is NOT set!"
+          else
+            echo "SHOPIFY_API_PASSWORD is set!"
+          fi
+
       - name: Authenticate with Shopify CLI
         env:
-          SHOPIFY_CLI_AUTH_TOKEN: ${{ secrets.SHOPIFY_API_PASSWORD }}  # Use API password stored in GitHub Secrets
+          SHOPIFY_CLI_AUTH_TOKEN: ${{ secrets.SHOPIFY_API_PASSWORD }}  # Pass secret to the CLI as an environment variable
         run: |
-          # Authenticate Shopify CLI with API password for non-interactive login
-          shopify login --store app-development-test729.myshopify.com --password ${{ secrets.SHOPIFY_API_PASSWORD }}
+          echo "Authenticating with Shopify CLI..."
+          shopify login --store app-development-test729.myshopify.com --password $SHOPIFY_CLI_AUTH_TOKEN
 
       - name: Deploy Theme
         env:
-          SHOPIFY_CLI_AUTH_TOKEN: ${{ secrets.SHOPIFY_API_PASSWORD }}  # Ensure token is passed for the deploy step
+          SHOPIFY_CLI_AUTH_TOKEN: ${{ secrets.SHOPIFY_API_PASSWORD }}  # Pass the same secret to the theme deployment
         run: shopify theme push --store app-development-test729.myshopify.com
