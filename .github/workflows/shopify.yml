@@ -22,14 +22,9 @@ jobs:
             echo "SHOPIFY_CLI_AUTH_TOKEN is set!"
           fi
 
-      - name: Authenticate with Shopify CLI (Non-Interactive)
+      - name: Deploy Theme (Non-Interactive)
         env:
           SHOPIFY_CLI_AUTH_TOKEN: ${{ secrets.SHOPIFY_API_PASSWORD }}
         run: |
-          echo "Authenticating with Shopify CLI..."
-          shopify login --store app-development-test729.myshopify.com --password $SHOPIFY_CLI_AUTH_TOKEN
-
-      - name: Deploy Theme
-        env:
-          SHOPIFY_CLI_AUTH_TOKEN: ${{ secrets.SHOPIFY_API_PASSWORD }}
-        run: shopify theme push --store app-development-test729.myshopify.com
+          echo "Deploying Theme to Shopify..."
+          shopify theme push --store app-development-test729.myshopify.com --password $SHOPIFY_CLI_AUTH_TOKEN
